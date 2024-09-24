@@ -7,4 +7,5 @@ public interface WebErrorCode {
     String getCode();
     String getMessage();
     HttpStatus getStatus();
+
 }

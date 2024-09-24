@@ -1,4 +1,4 @@
-package shade.dev.local.security.type.jwt.model;
+package shade.dev.local.security.type.jwt;
 
 import com.auth0.jwt.interfaces.DecodedJWT;
 import jakarta.servlet.FilterChain;
@@ -12,7 +12,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
-import shade.dev.local.security.type.jwt.JwtTokenProvider;
 
 import java.io.IOException;
 import java.util.List;
@@ -58,15 +57,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private Optional<String> getJwtFromRequest(HttpServletRequest request)
     {
-        String bearerToken = request.getHeader(AUTHORIZATION_HEADER);
-
-        if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(BEARER_PREFIX)) {
-            return Optional.of(bearerToken)
-                           .filter(StringUtils::hasText)
-                           .map(it -> it.substring(BEARER_PREFIX.length()));
-        }
-
-        return Optional.empty();
+        return Optional.of(request)
+                       .map(it -> request.getHeader(AUTHORIZATION_HEADER))
+                       .filter(it -> it.startsWith(BEARER_PREFIX) && StringUtils.hasText(it))
+                       .map(it -> it.substring(BEARER_PREFIX.length()))
+                       .filter(StringUtils::hasText);
     }
 
 }

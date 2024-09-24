@@ -6,7 +6,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import shade.dev.local.security.type.jwt.JwtTokenProvider;
-import shade.dev.local.security.type.jwt.model.JwtAuthenticationFilter;
+import shade.dev.local.security.type.jwt.JwtAuthenticationFilter;
 import shade.dev.local.security.type.jwt.model.JwtProperties;
 
 @Configuration
