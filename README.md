@@ -7,9 +7,10 @@
 To use Shade Starter Security in your Spring Boot project, add the following dependency to your `pom.xml`:
 
 ```xml
+
 <dependency>
     <groupId>com.github.shade-sdev</groupId>
-    <artifactId>shade-starter-security</artifactId>
+    <artifactId>shade-spring-boot-starter</artifactId>
     <version>master-SNAPSHOT</version>
 </dependency>
 ```
@@ -90,3 +91,97 @@ public class GlobalExceptionHandler {
     }
 }
 ```
+- **Permission Evaluator Factory**: Create multiple Permission Evaluator for a specific class
+
+This system allows you to manage permission evaluation in a flexible way based on the type of the target object. It leverages Spring Security's `PermissionEvaluator` interface and enhances it by introducing a `TargetedPermissionEvaluator` interface for specific object types.
+
+### Components
+TargetedPermissionEvaluator
+An interface that extends Spring Security's PermissionEvaluator:
+```java
+public interface TargetedPermissionEvaluator extends PermissionEvaluator {
+      String getTargetType();
+}
+```
+
+getTargetType(): Returns the fully qualified class name of the target type this evaluator handles.
+
+PermissionEvaluatorManager
+Manages and retrieves the appropriate TargetedPermissionEvaluator for a given class name:
+```java
+@Component
+public class PermissionEvaluatorManager {
+// ... (constructor and fields omitted for brevity)
+
+    public PermissionEvaluator targetedPermissionEvaluator(String className) {
+        // ... (implementation details)
+    }
+}
+```
+
+Uses Spring's ApplicationContext to fetch all beans of type TargetedPermissionEvaluator.
+Returns the appropriate evaluator based on the provided class name, or a DenyAllPermissionEvaluator if none is found.
+
+MainPermissionEvaluator
+The main entry point for permission evaluation:
+```java
+public class MainPermissionEvaluator implements PermissionEvaluator {
+// ... (constructor and fields omitted for brevity)
+
+    @Override
+    public boolean hasPermission(Authentication authentication, Object targetDomainObject, Object permission) {
+        // ... (implementation details)
+    }
+
+    @Override
+    public boolean hasPermission(Authentication authentication, Serializable targetId, String targetType, Object permission) {
+        // ... (implementation details)
+    }
+}
+```
+
+Delegates to the appropriate TargetedPermissionEvaluator based on the target object's class or provided target type.
+Falls back to DenyAllPermissionEvaluator if no specific evaluator is found.
+
+DenyAllPermissionEvaluator
+A fallback permission evaluator that denies all permissions:
+```java
+public class DenyAllPermissionEvaluator implements TargetedPermissionEvaluator {
+// ... (implementation details)
+}
+```
+
+Always returns false for any permission check.
+Used as a default when no specific evaluator is found.
+
+### Usage
+
+Create custom permission evaluators by implementing TargetedPermissionEvaluator:
+
+```java
+@Component
+public class TestPermissionEvaluator implements TargetedPermissionEvaluator {
+@Override
+public String getTargetType() {
+return Person.class.getName();
+}
+
+    // ... (implement hasPermission methods)
+}
+```
+
+Use the @PreAuthorize annotation with the hasPermission expression:
+
+```java
+import org.springframework.http.ResponseEntity;
+@PreAuthorize("hasPermission(null, 'com.example.person', null)")
+public ResponseEntity<Void> deletePerson() {
+    // ...
+}
+```
+How It Works
+
+When a method annotated with @PreAuthorize is called, Spring Security invokes the MainPermissionEvaluator.
+MainPermissionEvaluator uses PermissionEvaluatorManager to find the appropriate TargetedPermissionEvaluator.
+If a matching evaluator is found, it's used to check the permission.
+If no matching evaluator is found, the DenyAllPermissionEvaluator is used, denying the permission.
