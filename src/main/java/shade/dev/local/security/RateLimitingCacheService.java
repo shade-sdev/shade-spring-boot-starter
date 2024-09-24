@@ -1,6 +1,4 @@
-package shade.dev.local.security.type.ratelimiting.service;
-
-import shade.dev.local.security.type.ratelimiting.model.RateLimitCounter;
+package shade.dev.local.security;
 
 public interface RateLimitingCacheService {
 

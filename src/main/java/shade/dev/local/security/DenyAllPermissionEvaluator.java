@@ -1,4 +1,4 @@
-package shade.dev.local.security.type.permissionevaluator;
+package shade.dev.local.security;
 
 import java.io.Serializable;
 

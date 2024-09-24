@@ -1,11 +1,9 @@
-package shade.dev.local.security.type.permissionevaluator;
+package shade.dev.local.security;
 
 import java.io.Serializable;
 
 import org.springframework.security.access.PermissionEvaluator;
 import org.springframework.security.core.Authentication;
-
-import shade.dev.local.security.type.permissionevaluator.service.PermissionEvaluatorManager;
 
 public class MainPermissionEvaluator implements PermissionEvaluator {
 

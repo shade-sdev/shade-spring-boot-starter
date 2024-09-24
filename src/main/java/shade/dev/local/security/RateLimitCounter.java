@@ -1,4 +1,4 @@
-package shade.dev.local.security.type.ratelimiting.model;
+package shade.dev.local.security;
 
 import java.util.concurrent.TimeUnit;
 

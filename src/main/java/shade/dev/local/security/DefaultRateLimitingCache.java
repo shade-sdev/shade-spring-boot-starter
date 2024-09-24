@@ -1,11 +1,9 @@
-package shade.dev.local.security.type.ratelimiting.service.impl;
+package shade.dev.local.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
 import org.springframework.stereotype.Component;
-import shade.dev.local.security.type.ratelimiting.model.RateLimitCounter;
-import shade.dev.local.security.type.ratelimiting.service.RateLimitingCacheService;
 
 import java.util.Optional;
 

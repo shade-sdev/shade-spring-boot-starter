@@ -1,12 +1,9 @@
-package shade.dev.local.security.type.permissionevaluator.service;
+package shade.dev.local.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.security.access.PermissionEvaluator;
 import org.springframework.stereotype.Component;
-
-import shade.dev.local.security.type.permissionevaluator.DenyAllPermissionEvaluator;
-import shade.dev.local.security.type.permissionevaluator.TargetedPermissionEvaluator;
 
 @Component
 public class PermissionEvaluatorManager {

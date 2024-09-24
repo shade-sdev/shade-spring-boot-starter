@@ -1,4 +1,4 @@
-package shade.dev.local.security.exception;
+package shade.dev.local.security;
 
 import org.springframework.http.HttpStatus;
 

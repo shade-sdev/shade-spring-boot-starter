@@ -1,4 +1,4 @@
-package shade.dev.local.security.annotation;
+package shade.dev.local.security;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

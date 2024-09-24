@@ -1,4 +1,4 @@
-package shade.dev.local.security.aspect;
+package shade.dev.local.security;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -8,10 +8,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
-import shade.dev.local.security.annotation.RateLimit;
-import shade.dev.local.security.type.ratelimiting.model.RateLimitCounter;
-import shade.dev.local.security.exception.RateLimitException;
-import shade.dev.local.security.type.ratelimiting.service.RateLimitingCacheService;
 
 import java.util.Arrays;
 import java.util.Objects;
