@@ -1,7 +1,6 @@
 package shade.dev.local.security.config;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -16,15 +15,15 @@ public class JwtConfiguration {
 
     @Bean
     @ConditionalOnProperty(prefix = "shade.jwt", name = {"issuer", "token-expiration", "secret-key"})
-    @ConditionalOnMissingBean
-    public JwtTokenProvider jwtTokenProvider(JwtProperties jwtProperties) {
+    public JwtTokenProvider jwtTokenProvider(JwtProperties jwtProperties)
+    {
         return new JwtTokenProvider(jwtProperties);
     }
 
     @Bean
     @ConditionalOnBean(JwtTokenProvider.class)
-    @ConditionalOnMissingBean
-    public JwtAuthenticationFilter jwtAuthenticationFilter(JwtTokenProvider jwtTokenProvider) {
+    public JwtAuthenticationFilter jwtAuthenticationFilter(JwtTokenProvider jwtTokenProvider)
+    {
         return new JwtAuthenticationFilter(jwtTokenProvider);
     }
 
