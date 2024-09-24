@@ -43,7 +43,7 @@ public class JwtTokenProvider {
         return verifier.verify(token);
     }
 
-    private String generateToken(UserDetails userDetails, Map<String, String> additionalClaims)
+    public String generateToken(UserDetails userDetails, Map<String, String> additionalClaims)
     {
         JWTCreator.Builder builder = JWT.create();
         builder.withIssuer(jwtProperties.getIssuer());
