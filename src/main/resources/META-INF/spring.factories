@@ -1,4 +1,0 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-shade.dev.local.security.Config,\
-shade.dev.local.security.RateLimitAutoConfiguration,\
-shade.dev.local.security.MethodSecurityAutoConfiguration
