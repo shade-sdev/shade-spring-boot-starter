@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
-import shade.dev.local.security.type.ratelimiting.RateLimitCounter;
+import shade.dev.local.security.type.ratelimiting.model.RateLimitCounter;
 import shade.dev.local.security.type.ratelimiting.RateLimitingCacheService;
 
 @Component

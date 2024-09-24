@@ -1,2 +1,3 @@
 shade.dev.local.security.config.RateLimitAutoConfiguration
 shade.dev.local.security.config.MethodSecurityAutoConfiguration
+shade.dev.local.security.config.JwtConfiguration

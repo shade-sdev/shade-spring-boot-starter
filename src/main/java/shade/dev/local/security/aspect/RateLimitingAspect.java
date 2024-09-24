@@ -14,8 +14,8 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import shade.dev.local.security.type.ratelimiting.RateLimitCounter;
-import shade.dev.local.security.type.ratelimiting.RateLimitException;
+import shade.dev.local.security.type.ratelimiting.model.RateLimitCounter;
+import shade.dev.local.security.type.ratelimiting.exception.RateLimitException;
 import shade.dev.local.security.type.ratelimiting.RateLimitingCacheService;
 import shade.dev.local.security.annotation.RateLimit;
 
