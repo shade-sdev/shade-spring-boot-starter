@@ -43,7 +43,7 @@ To use Shade Starter Security in your Spring Boot project, add the following dep
 - **Caching Support**: Utilizes caching to manage rate limit counters efficiently.
 
   The implementation uses a caching mechanism to store and retrieve rate limit counters. Here’s an example of how to implement a simple caching service:
-
+  Make sure to enable Caching with `@EnableCaching`
     ```java
     @Component
     public class CacheService {
