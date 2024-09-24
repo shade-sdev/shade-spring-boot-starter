@@ -17,4 +17,5 @@ public @interface RateLimit {
     TimeUnit timeUnit();
 
     String[] roles() default {};
+
 }

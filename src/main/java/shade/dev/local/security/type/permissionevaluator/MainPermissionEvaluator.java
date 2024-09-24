@@ -34,4 +34,5 @@ public class MainPermissionEvaluator implements PermissionEvaluator {
 
         return permissionEvaluator.hasPermission(authentication, targetId, targetType, permission);
     }
+
 }

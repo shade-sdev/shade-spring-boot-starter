@@ -38,4 +38,5 @@ public class DefaultRateLimitingCache implements RateLimitingCacheService {
                        .map(RateLimitCounter.class::cast)
                        .orElse(null);
     }
+
 }

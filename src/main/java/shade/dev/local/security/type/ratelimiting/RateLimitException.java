@@ -4,10 +4,21 @@ import org.springframework.http.HttpStatus;
 
 public class RateLimitException extends RuntimeException {
 
-    public RateLimitException()
-    {
+    private final String code;
+    private final HttpStatus status;
+
+    public RateLimitException() {
         super("You are being rate limited");
-        String code = "RATE_LIMIT_EXCEEDED";
-        HttpStatus status = HttpStatus.TOO_MANY_REQUESTS;
+        this.code = "RATE_LIMIT_EXCEEDED";
+        this.status = HttpStatus.TOO_MANY_REQUESTS;
     }
+
+    public String getCode() {
+        return this.code;
+    }
+
+    public HttpStatus getHttpStatus() {
+        return this.status;
+    }
+
 }
