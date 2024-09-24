@@ -1,9 +1,13 @@
-package shade.dev.local.security;
+package shade.dev.local.security.config;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.cache.CacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import shade.dev.local.security.type.ratelimiting.impl.DefaultRateLimitingCache;
+import shade.dev.local.security.type.ratelimiting.RateLimitingCacheService;
+import shade.dev.local.security.aspect.RateLimitingAspect;
 
 @Configuration
 @ConditionalOnMissingBean(RateLimitingCacheService.class)

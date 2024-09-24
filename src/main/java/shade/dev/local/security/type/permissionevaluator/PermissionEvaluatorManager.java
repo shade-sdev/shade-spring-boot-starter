@@ -1,4 +1,4 @@
-package shade.dev.local.security;
+package shade.dev.local.security.type.permissionevaluator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;

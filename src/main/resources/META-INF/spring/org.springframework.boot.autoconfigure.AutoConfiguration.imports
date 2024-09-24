@@ -1,2 +1,2 @@
-shade.dev.local.security.RateLimitAutoConfiguration
-shade.dev.local.security.MethodSecurityAutoConfiguration
+shade.dev.local.security.config.RateLimitAutoConfiguration
+shade.dev.local.security.config.MethodSecurityAutoConfiguration

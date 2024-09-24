@@ -1,4 +1,4 @@
-package shade.dev.local.security;
+package shade.dev.local.security.type.ratelimiting;
 
 import org.springframework.http.HttpStatus;
 
