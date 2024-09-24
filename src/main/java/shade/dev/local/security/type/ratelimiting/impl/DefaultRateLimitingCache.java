@@ -1,23 +1,18 @@
 package shade.dev.local.security.type.ratelimiting.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
-import org.springframework.stereotype.Component;
+import shade.dev.local.security.type.ratelimiting.RateLimitingCacheService;
+import shade.dev.local.security.type.ratelimiting.model.RateLimitCounter;
 
 import java.util.Optional;
 
-import shade.dev.local.security.type.ratelimiting.model.RateLimitCounter;
-import shade.dev.local.security.type.ratelimiting.RateLimitingCacheService;
-
-@Component
 public class DefaultRateLimitingCache implements RateLimitingCacheService {
 
     private static final String RATE_CACHE = "rateLimit";
 
     private final CacheManager cacheManager;
 
-    @Autowired
     public DefaultRateLimitingCache(CacheManager cacheManager)
     {
         this.cacheManager = cacheManager;
