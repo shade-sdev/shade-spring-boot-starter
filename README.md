@@ -1,6 +1,7 @@
 # Shade Starter Security
 
-**Shade Starter Security** is a Spring Boot starter that provides rate limiting with caching features, allowing you to control access to your application’s methods based on user roles and request limits.
+**Shade Starter Security** is a Spring Boot starter that provides rate limiting with caching features, allowing you to control access to your application’s methods based on user roles and request
+limits.
 
 ## Dependency
 
@@ -72,15 +73,18 @@ To use Shade Starter Security in your Spring Boot project, add the following dep
 
 ## RateLimitException
 
-The `RateLimitException` is thrown when a user exceeds the allowed number of requests within a specified time frame. This exception is used to manage rate limit violations and provide appropriate feedback to the user.
+The `RateLimitException` is thrown when a user exceeds the allowed number of requests within a specified time frame. This exception is used to manage rate limit violations and provide appropriate
+feedback to the user.
 
 ### Usage
 
-When a method annotated with `@RateLimit` is accessed, and the rate limit has been exceeded, the `RateLimitException` will be triggered. You can handle this exception globally to return a user-friendly message or status code.
+When a method annotated with `@RateLimit` is accessed, and the rate limit has been exceeded, the `RateLimitException` will be triggered. You can handle this exception globally to return a
+user-friendly message or status code.
 
 ### Example
 
 ```java
+
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
@@ -91,16 +95,20 @@ public class GlobalExceptionHandler {
     }
 }
 ```
+
 - **Permission Evaluator Factory**: Create multiple Permission Evaluator for a specific class
 
-This system allows you to manage permission evaluation in a flexible way based on the type of the target object. It leverages Spring Security's `PermissionEvaluator` interface and enhances it by introducing a `TargetedPermissionEvaluator` interface for specific object types.
+This system allows you to manage permission evaluation in a flexible way based on the type of the target object. It leverages Spring Security's `PermissionEvaluator` interface and enhances it by
+introducing a `TargetedPermissionEvaluator` interface for specific object types.
 
 ### Components
+
 TargetedPermissionEvaluator
 An interface that extends Spring Security's PermissionEvaluator:
+
 ```java
 public interface TargetedPermissionEvaluator extends PermissionEvaluator {
-      String getTargetType();
+    String getTargetType();
 }
 ```
 
@@ -108,10 +116,12 @@ getTargetType(): Returns the fully qualified class name of the target type this 
 
 PermissionEvaluatorManager
 Manages and retrieves the appropriate TargetedPermissionEvaluator for a given class name:
+
 ```java
+
 @Component
 public class PermissionEvaluatorManager {
-// ... (constructor and fields omitted for brevity)
+    // ... (constructor and fields omitted for brevity)
 
     public PermissionEvaluator targetedPermissionEvaluator(String className) {
         // ... (implementation details)
@@ -124,9 +134,10 @@ Returns the appropriate evaluator based on the provided class name, or a DenyAll
 
 MainPermissionEvaluator
 The main entry point for permission evaluation:
+
 ```java
 public class MainPermissionEvaluator implements PermissionEvaluator {
-// ... (constructor and fields omitted for brevity)
+    // ... (constructor and fields omitted for brevity)
 
     @Override
     public boolean hasPermission(Authentication authentication, Object targetDomainObject, Object permission) {
@@ -145,9 +156,10 @@ Falls back to DenyAllPermissionEvaluator if no specific evaluator is found.
 
 DenyAllPermissionEvaluator
 A fallback permission evaluator that denies all permissions:
+
 ```java
 public class DenyAllPermissionEvaluator implements TargetedPermissionEvaluator {
-// ... (implementation details)
+    // ... (implementation details)
 }
 ```
 
@@ -159,12 +171,13 @@ Used as a default when no specific evaluator is found.
 Create custom permission evaluators by implementing TargetedPermissionEvaluator:
 
 ```java
+
 @Component
 public class TestPermissionEvaluator implements TargetedPermissionEvaluator {
-@Override
-public String getTargetType() {
-return Person.class.getName();
-}
+    @Override
+    public String getTargetType() {
+        return Person.class.getName();
+    }
 
     // ... (implement hasPermission methods)
 }
@@ -174,29 +187,32 @@ Use the @PreAuthorize annotation with the hasPermission expression:
 
 ```java
 import org.springframework.http.ResponseEntity;
+
 @PreAuthorize("hasPermission(null, 'com.example.person', null)")
 public ResponseEntity<Void> deletePerson() {
     // ...
 }
 ```
+
 Applying it to your own MethodSecurityExpressionHandler
 
 ```java
-    @Bean
-    public PermissionEvaluatorManager permissionEvaluatorManager(ApplicationContext applicationContext) {
-        return new PermissionEvaluatorManager(applicationContext);
-    }
 
-    @Bean
-    public MethodSecurityExpressionHandler methodSecurityExpressionHandler(
-            RoleHierarchy roleHierarchy,
-            PermissionEvaluatorManager permissionEvaluatorManager
-    ) {
-        DefaultMethodSecurityExpressionHandler expressionHandler = new DefaultMethodSecurityExpressionHandler();
-        expressionHandler.setRoleHierarchy(roleHierarchy);
-        expressionHandler.setPermissionEvaluator(new MainPermissionEvaluator(permissionEvaluatorManager));
-        return expressionHandler;
-    }
+@Bean
+public PermissionEvaluatorManager permissionEvaluatorManager(ApplicationContext applicationContext) {
+    return new PermissionEvaluatorManager(applicationContext);
+}
+
+@Bean
+public MethodSecurityExpressionHandler methodSecurityExpressionHandler(
+        RoleHierarchy roleHierarchy,
+        PermissionEvaluatorManager permissionEvaluatorManager
+) {
+    DefaultMethodSecurityExpressionHandler expressionHandler = new DefaultMethodSecurityExpressionHandler();
+    expressionHandler.setRoleHierarchy(roleHierarchy);
+    expressionHandler.setPermissionEvaluator(new MainPermissionEvaluator(permissionEvaluatorManager));
+    return expressionHandler;
+}
 ```
 
 How It Works
