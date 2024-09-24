@@ -179,6 +179,26 @@ public ResponseEntity<Void> deletePerson() {
     // ...
 }
 ```
+Applying it to your own MethodSecurityExpressionHandler
+
+```java
+    @Bean
+    public PermissionEvaluatorManager permissionEvaluatorManager(ApplicationContext applicationContext) {
+        return new PermissionEvaluatorManager(applicationContext);
+    }
+
+    @Bean
+    public MethodSecurityExpressionHandler methodSecurityExpressionHandler(
+            RoleHierarchy roleHierarchy,
+            PermissionEvaluatorManager permissionEvaluatorManager
+    ) {
+        DefaultMethodSecurityExpressionHandler expressionHandler = new DefaultMethodSecurityExpressionHandler();
+        expressionHandler.setRoleHierarchy(roleHierarchy);
+        expressionHandler.setPermissionEvaluator(new MainPermissionEvaluator(permissionEvaluatorManager));
+        return expressionHandler;
+    }
+```
+
 How It Works
 
 When a method annotated with @PreAuthorize is called, Spring Security invokes the MainPermissionEvaluator.
