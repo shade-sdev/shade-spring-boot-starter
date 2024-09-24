@@ -7,20 +7,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Component;
+import shade.dev.local.security.annotation.RateLimit;
+import shade.dev.local.security.type.ratelimiting.RateLimitingCacheService;
+import shade.dev.local.security.type.ratelimiting.exception.RateLimitException;
+import shade.dev.local.security.type.ratelimiting.model.RateLimitCounter;
 
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import shade.dev.local.security.type.ratelimiting.model.RateLimitCounter;
-import shade.dev.local.security.type.ratelimiting.exception.RateLimitException;
-import shade.dev.local.security.type.ratelimiting.RateLimitingCacheService;
-import shade.dev.local.security.annotation.RateLimit;
-
 @Aspect
-@Component
 public class RateLimitingAspect {
 
     private final RateLimitingCacheService cacheService;

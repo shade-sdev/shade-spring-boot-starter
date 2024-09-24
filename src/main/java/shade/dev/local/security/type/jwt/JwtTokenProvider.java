@@ -5,10 +5,8 @@ import com.auth0.jwt.JWTCreator;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Component;
 import shade.dev.local.security.type.jwt.model.JwtProperties;
 
 import java.util.Collection;
@@ -16,14 +14,14 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-@Component
+
 public class JwtTokenProvider {
 
     private static final String AUTHORITIES = "authorities";
 
     private final JwtProperties jwtProperties;
 
-    @Autowired
+
     public JwtTokenProvider(JwtProperties jwtProperties)
     {
         this.jwtProperties = jwtProperties;
