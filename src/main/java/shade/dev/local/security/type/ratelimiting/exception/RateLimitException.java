@@ -2,23 +2,25 @@ package shade.dev.local.security.type.ratelimiting.exception;
 
 import org.springframework.http.HttpStatus;
 
-public class RateLimitException extends RuntimeException {
+import shade.dev.local.exception.WebCoreException;
+import shade.dev.local.exception.model.WebErrorCode;
 
-    private final String code;
-    private final HttpStatus status;
+public class RateLimitException extends WebCoreException {
 
     public RateLimitException() {
-        super("You are being rate limited");
-        this.code = "RATE_LIMIT_EXCEEDED";
-        this.status = HttpStatus.TOO_MANY_REQUESTS;
-    }
+        super("You are being rate limited", new WebErrorCode() {
 
-    public String getCode() {
-        return this.code;
-    }
+            @Override
+            public String getCode() {
+                return "RATE_LIMIT_EXCEEDED";
+            }
 
-    public HttpStatus getHttpStatus() {
-        return this.status;
+            @Override
+            public HttpStatus getStatus() {
+                return HttpStatus.TOO_MANY_REQUESTS;
+            }
+
+        });
     }
 
 }
