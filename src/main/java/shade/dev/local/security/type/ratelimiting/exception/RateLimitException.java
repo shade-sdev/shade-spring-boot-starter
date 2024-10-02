@@ -8,8 +8,12 @@ import shade.dev.local.exception.model.WebErrorCode;
 public class RateLimitException extends WebCoreException {
 
     public RateLimitException() {
-        super("You are being rate limited", new WebErrorCode() {
+        super("You are being rate limited");
+    }
 
+    @Override
+    protected WebErrorCode getErrorCode() {
+        return new WebErrorCode() {
             @Override
             public String getCode() {
                 return "RATE_LIMIT_EXCEEDED";
@@ -19,8 +23,7 @@ public class RateLimitException extends WebCoreException {
             public HttpStatus getStatus() {
                 return HttpStatus.TOO_MANY_REQUESTS;
             }
-
-        });
+        };
     }
 
 }

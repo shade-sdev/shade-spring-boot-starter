@@ -1,5 +1,10 @@
 package shade.dev.local.security.aspect;
 
+import java.util.Arrays;
+import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -7,15 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+
 import shade.dev.local.security.annotation.RateLimit;
 import shade.dev.local.security.type.ratelimiting.RateLimitingCacheService;
 import shade.dev.local.security.type.ratelimiting.exception.RateLimitException;
 import shade.dev.local.security.type.ratelimiting.model.RateLimitCounter;
-
-import java.util.Arrays;
-import java.util.Objects;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Aspect
 public class RateLimitingAspect {
@@ -23,14 +24,12 @@ public class RateLimitingAspect {
     private final RateLimitingCacheService cacheService;
 
     @Autowired
-    public RateLimitingAspect(RateLimitingCacheService cacheService)
-    {
+    public RateLimitingAspect(RateLimitingCacheService cacheService) {
         this.cacheService = cacheService;
     }
 
     @Around("@annotation(rateLimit)")
-    public Object enforceRateLimit(ProceedingJoinPoint joinPoint, RateLimit rateLimit) throws Throwable
-    {
+    public Object enforceRateLimit(ProceedingJoinPoint joinPoint, RateLimit rateLimit) throws Throwable {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Set<String> authenticatedRoles = authentication.getAuthorities()
                                                        .stream()
