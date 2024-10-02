@@ -47,7 +47,7 @@ public class WebCoreException extends RuntimeException {
     }
 
     public HttpStatusCode getStatusCode() {
-        return this.getStatusCode();
+        return this.statusCode;
     }
 
 }
