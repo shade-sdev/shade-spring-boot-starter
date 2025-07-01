@@ -10,11 +10,11 @@ import java.util.concurrent.TimeUnit;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface RateLimit {
 
-    int maxRequests();
+    int maxRequests() default 10;
 
-    int time();
+    int time() default 15;
 
-    TimeUnit timeUnit();
+    TimeUnit timeUnit() default TimeUnit.MINUTES;
 
     String[] roles() default {};
 
