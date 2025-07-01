@@ -2,6 +2,7 @@ package shade.dev.local.security.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler;
@@ -10,9 +11,11 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 
 import shade.dev.local.security.type.permissionevaluator.MainPermissionEvaluator;
 import shade.dev.local.security.type.permissionevaluator.PermissionEvaluatorManager;
+import shade.dev.local.security.type.permissionevaluator.model.PermissionEvaluatorProperties;
 
 @Configuration
-@ConditionalOnMissingBean(MethodSecurityExpressionHandler.class)
+@EnableConfigurationProperties(PermissionEvaluatorProperties.class)
+@ConditionalOnMissingBean({MethodSecurityExpressionHandler.class, PermissionEvaluatorProperties.class})
 @EnableMethodSecurity(jsr250Enabled = true, securedEnabled = true, proxyTargetClass = true)
 public class MethodSecurityAutoConfiguration {
 
